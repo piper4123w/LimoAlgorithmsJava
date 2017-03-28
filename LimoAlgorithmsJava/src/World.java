@@ -13,7 +13,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-class World extends Application {
+public class World extends Application {
 	public final int WIDTH = 750;
 	public final int HEIGHT = 500;
 	public final int FPS = 30;
@@ -57,7 +57,7 @@ class World extends Application {
 
 	}
 
-	public static void main(String[] args) {
+	public static void start(String[] args) {
 		launch(args);
 	}
 
