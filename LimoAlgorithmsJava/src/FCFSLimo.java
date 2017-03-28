@@ -26,12 +26,11 @@ public class FCFSLimo extends Limo {
 
 		else if (!passengerList.isEmpty()) { // if there are passengers go to
 												// their destinations
-			System.out.println("Heading to dest");
 			if (x == passengerList.get(0).destX && y == passengerList.get(0).destY) {
 				// System.out.println("Dropped off passenger");
 				passengerList.remove(0);
 			} else {
-				//if target not reached, continue to target location
+				// if target not reached, continue to target location
 				targetX = passengerList.get(0).destX;
 				targetY = passengerList.get(0).destY;
 				move();

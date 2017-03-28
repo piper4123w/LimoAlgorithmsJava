@@ -1,11 +1,11 @@
 import javafx.scene.paint.Color;
 
-public class ClosestFirstLimo extends Limo {
+public class GreedyLimo extends Limo {
 
-	public ClosestFirstLimo(int x, int y) {
+	public GreedyLimo(int x, int y) {
 		this.x = x;
 		this.y = y;
-		color = Color.RED;
+		color = Color.GREEN;
 	}
 
 	public void update() {
@@ -14,9 +14,12 @@ public class ClosestFirstLimo extends Limo {
 		double closestDistPL = Integer.MAX_VALUE;
 		int PLi = 0;
 
+		// Add weight to all callers
+		addWeight();
+
 		// Find the closet destination
 		for (Caller c : callerList) {
-			double dist = Math.sqrt(Math.abs(x - c.x) + Math.abs(y - c.y));
+			double dist = Math.sqrt(Math.abs(x - c.x) + Math.abs(y - c.y)) - c.weight;
 			if (dist < closestDistCL) {
 				closestDistCL = dist;
 				CLi = callerList.indexOf(c);
@@ -24,7 +27,7 @@ public class ClosestFirstLimo extends Limo {
 		}
 
 		for (Caller p : passengerList) {
-			double dist = Math.sqrt(Math.abs(x - p.destX) + Math.abs(y - p.destY));
+			double dist = Math.sqrt(Math.abs(x - p.destX) + Math.abs(y - p.destY)) - p.weight;
 			if (dist < closestDistPL) {
 				closestDistPL = dist;
 				PLi = passengerList.indexOf(p);
@@ -49,6 +52,15 @@ public class ClosestFirstLimo extends Limo {
 				move();
 		}
 
+	}
+
+	private void addWeight() {
+		for (Caller p : passengerList) {
+			p.weight++;
+		}
+		for (Caller c : callerList) {
+			c.weight++;
+		}
 	}
 
 	public void addCaller(Caller c) {

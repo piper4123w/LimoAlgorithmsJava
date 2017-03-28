@@ -16,7 +16,7 @@ import javafx.scene.paint.Color;
 public class World extends Application {
 	public final int WIDTH = 750;
 	public final int HEIGHT = 500;
-	public final int FPS = 30;
+	public final int FPS = 120;
 
 	public GraphicsContext gc;
 
@@ -33,7 +33,9 @@ public class World extends Application {
 		chance = sc.nextDouble();
 		Limo l = new FCFSLimo(WIDTH / 2, HEIGHT / 2);
 		limos.add(l);
-		// l = new ClosestFirstLimo(WIDTH / 2, HEIGHT / 2);
+		l = new ClosestFirstLimo(WIDTH / 2, HEIGHT / 2);
+		limos.add(l);
+		l = new GreedyLimo(WIDTH / 2, HEIGHT / 2);
 		limos.add(l);
 
 	}
@@ -51,6 +53,8 @@ public class World extends Application {
 					((FCFSLimo) l).addCaller(c);
 				if (l instanceof ClosestFirstLimo)
 					((ClosestFirstLimo) l).addCaller(c);
+				if (l instanceof GreedyLimo)
+					((GreedyLimo) l).addCaller(c);
 			}
 			callers--;
 		}
