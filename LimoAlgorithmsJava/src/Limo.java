@@ -60,7 +60,10 @@ public class Limo extends World {
 		double totalWaitTime = 0;
 		double maxWaitTime = 0;
 		double minWaitTime = Double.MAX_VALUE;
-		System.out.println(this.getClass().toString() + " DONE:");
+		String s = "";
+		if (this instanceof GreedyLimo)
+			s += " weight:" + ((GreedyLimo) this).WEIGHT;
+		System.out.println(this.getClass().toString() + s + " DONE:");
 		System.out.println("Distance Traveled = " + distTraveled);
 		for (Caller c : finishedCallers) {
 			totalWaitTime += c.waitTime;

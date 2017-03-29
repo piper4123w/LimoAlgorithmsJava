@@ -35,7 +35,11 @@ public class World extends Application {
 		limos.add(l);
 		l = new ClosestFirstLimo(WIDTH / 2, HEIGHT / 2);
 		limos.add(l);
-		l = new GreedyLimo(WIDTH / 2, HEIGHT / 2);
+		l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 0.1, Color.GREEN);
+		limos.add(l);
+		l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 1, Color.CORNFLOWERBLUE);
+		limos.add(l);
+		l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 100, Color.HOTPINK);
 		limos.add(l);
 
 	}
@@ -56,8 +60,8 @@ public class World extends Application {
 					((FCFSLimo) l).addCaller(c);
 				if (l instanceof ClosestFirstLimo)
 					((ClosestFirstLimo) l).addCaller(c);
-				if (l instanceof GreedyLimo)
-					((GreedyLimo) l).addCaller(c);
+				if (l instanceof GreedyCF)
+					((GreedyCF) l).addCaller(c);
 			}
 			callers--;
 		}
@@ -100,7 +104,7 @@ public class World extends Application {
 
 	void render(GraphicsContext gc) {
 		// Clear background
-		gc.setFill(Color.DARKBLUE);
+		gc.setFill(Color.BLACK);
 		gc.fillRect(0, 0, WIDTH, HEIGHT);
 		for (Limo l : limos) {
 			gc.setFill(l.color);
