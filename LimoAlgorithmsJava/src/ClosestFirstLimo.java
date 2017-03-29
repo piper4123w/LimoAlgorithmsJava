@@ -16,7 +16,7 @@ public class ClosestFirstLimo extends Limo {
 
 		// Find the closet destination
 		for (Caller c : callerList) {
-			double dist = Math.sqrt(Math.abs(x - c.x) + Math.abs(y - c.y));
+			double dist = Math.sqrt(Math.pow(x - c.x, 2) + Math.pow(y - c.y, 2));
 			if (dist < closestDistCL) {
 				closestDistCL = dist;
 				CLi = callerList.indexOf(c);
@@ -24,14 +24,14 @@ public class ClosestFirstLimo extends Limo {
 		}
 
 		for (Caller p : passengerList) {
-			double dist = Math.sqrt(Math.abs(x - p.destX) + Math.abs(y - p.destY));
+			double dist = Math.sqrt(Math.pow(x - p.destX, 2) + Math.pow(y - p.destY, 2));
 			if (dist < closestDistPL) {
 				closestDistPL = dist;
 				PLi = passengerList.indexOf(p);
 			}
 		}
 
-		if (closestDistCL < closestDistPL && !callerList.isEmpty()) {
+		if (passengerList.size() < capacity && closestDistCL < closestDistPL && !callerList.isEmpty()) {
 			targetX = callerList.get(CLi).x;
 			targetY = callerList.get(CLi).y;
 			if (x == callerList.get(CLi).x && y == callerList.get(CLi).y) {
@@ -40,7 +40,7 @@ public class ClosestFirstLimo extends Limo {
 
 			} else
 				move();
-		} else if (closestDistCL >= closestDistPL && !passengerList.isEmpty()) {
+		} else if (!passengerList.isEmpty()) {
 			targetX = passengerList.get(PLi).destX;
 			targetY = passengerList.get(PLi).destY;
 			if (x == passengerList.get(PLi).destX && y == passengerList.get(PLi).destY) {

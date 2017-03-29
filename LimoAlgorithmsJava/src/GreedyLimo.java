@@ -2,6 +2,8 @@ import javafx.scene.paint.Color;
 
 public class GreedyLimo extends Limo {
 
+	public static final double WEIGHT = .1;
+
 	public GreedyLimo(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -19,7 +21,7 @@ public class GreedyLimo extends Limo {
 
 		// Find the closet destination
 		for (Caller c : callerList) {
-			double dist = Math.sqrt(Math.abs(x - c.x) + Math.abs(y - c.y)) - c.weight;
+			double dist = Math.sqrt(Math.pow(x - c.x,2) + Math.pow(y - c.y,2)) - c.weight;
 			if (dist < closestDistCL) {
 				closestDistCL = dist;
 				CLi = callerList.indexOf(c);
@@ -27,14 +29,14 @@ public class GreedyLimo extends Limo {
 		}
 
 		for (Caller p : passengerList) {
-			double dist = Math.sqrt(Math.abs(x - p.destX) + Math.abs(y - p.destY)) - p.weight;
+			double dist = Math.sqrt(Math.pow(x - p.destX,2) + Math.pow(y - p.destY,2)) - p.weight;
 			if (dist < closestDistPL) {
 				closestDistPL = dist;
 				PLi = passengerList.indexOf(p);
 			}
 		}
 
-		if (closestDistCL < closestDistPL && !callerList.isEmpty()) {
+		if (closestDistCL < closestDistPL && !callerList.isEmpty() && passengerList.size() < capacity) {
 			targetX = callerList.get(CLi).x;
 			targetY = callerList.get(CLi).y;
 			if (x == callerList.get(CLi).x && y == callerList.get(CLi).y) {
@@ -43,14 +45,13 @@ public class GreedyLimo extends Limo {
 
 			} else
 				move();
-		} else if (closestDistCL >= closestDistPL && !passengerList.isEmpty()) {
+		} else if (!passengerList.isEmpty()) {
 			targetX = passengerList.get(PLi).destX;
 			targetY = passengerList.get(PLi).destY;
-			if (x == passengerList.get(PLi).destX && y == passengerList.get(PLi).destY){
+			if (x == passengerList.get(PLi).destX && y == passengerList.get(PLi).destY) {
 				finishedCallers.add(passengerList.get(PLi));
 				passengerList.remove(PLi);
-			}
-			else
+			} else
 				move();
 		}
 
@@ -58,10 +59,10 @@ public class GreedyLimo extends Limo {
 
 	private void addWeight() {
 		for (Caller p : passengerList) {
-			p.weight++;
+			p.weight += WEIGHT;
 		}
 		for (Caller c : callerList) {
-			c.weight++;
+			c.weight += WEIGHT;
 		}
 	}
 

@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
 public class Limo extends World {
+	public int capacity = 15;
+
 	public int targetX;
 	public int targetY;
 
@@ -20,7 +22,7 @@ public class Limo extends World {
 	boolean dataPrinted = false;
 
 	public ArrayList<Caller> callerList = new ArrayList<Caller>();
-	public ArrayList<Caller> passengerList = new ArrayList<Caller>();
+	public ArrayList<Caller> passengerList = new ArrayList<Caller>(capacity);
 	public ArrayList<Caller> finishedCallers = new ArrayList<Caller>();
 
 	public void move() {
@@ -57,16 +59,19 @@ public class Limo extends World {
 	public void printData() {
 		double totalWaitTime = 0;
 		double maxWaitTime = 0;
+		double minWaitTime = Double.MAX_VALUE;
 		System.out.println(this.getClass().toString() + " DONE:");
 		System.out.println("Distance Traveled = " + distTraveled);
 		for (Caller c : finishedCallers) {
 			totalWaitTime += c.waitTime;
-			if (c.waitTime > maxWaitTime) {
+			if (c.waitTime > maxWaitTime)
 				maxWaitTime = c.waitTime;
-			}
+			if (c.waitTime < minWaitTime)
+				minWaitTime = c.waitTime;
 		}
 		System.out.println("total time for riders = " + totalWaitTime);
-		System.out.println("max wait for riders = " + maxWaitTime);
+		System.out.println("Max wait for riders = " + maxWaitTime);
+		System.out.println("Min wait for riders = " + minWaitTime);
 		System.out.println("");
 	}
 

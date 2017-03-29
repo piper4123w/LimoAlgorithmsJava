@@ -16,7 +16,7 @@ import javafx.scene.paint.Color;
 public class World extends Application {
 	public final int WIDTH = 750;
 	public final int HEIGHT = 500;
-	public final int FPS = 120;
+	public final int FPS = 900;
 
 	public GraphicsContext gc;
 
