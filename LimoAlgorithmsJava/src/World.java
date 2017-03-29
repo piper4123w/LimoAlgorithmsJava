@@ -43,11 +43,14 @@ public class World extends Application {
 	void update() {
 		for (Limo l : limos) {
 			l.update();
+			l.updateData();
 			// l.draw();
+			if (callers <= 0) {
+				l.noMoreCallers = true;
+			}
 		}
 		if (Math.random() * 100 < chance && callers > 0) {
 			Caller c = new Caller();
-			System.out.println("New Caller");
 			for (Limo l : limos) {
 				if (l instanceof FCFSLimo) // need this for all algorithms
 					((FCFSLimo) l).addCaller(c);

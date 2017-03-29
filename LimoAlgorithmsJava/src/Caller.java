@@ -15,6 +15,8 @@ public class Caller extends World {
 
 	public double weight = 0;
 
+	public double waitTime = 0;
+
 	public Caller() {
 		x = (int) (Math.random() * WIDTH);
 		y = (int) (Math.random() * HEIGHT);

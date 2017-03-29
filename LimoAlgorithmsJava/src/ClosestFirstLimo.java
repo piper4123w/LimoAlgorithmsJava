@@ -43,9 +43,10 @@ public class ClosestFirstLimo extends Limo {
 		} else if (closestDistCL >= closestDistPL && !passengerList.isEmpty()) {
 			targetX = passengerList.get(PLi).destX;
 			targetY = passengerList.get(PLi).destY;
-			if (x == passengerList.get(PLi).destX && y == passengerList.get(PLi).destY)
+			if (x == passengerList.get(PLi).destX && y == passengerList.get(PLi).destY) {
+				finishedCallers.add(passengerList.get(PLi));
 				passengerList.remove(PLi);
-			else
+			} else
 				move();
 		}
 

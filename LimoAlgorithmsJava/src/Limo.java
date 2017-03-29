@@ -12,12 +12,16 @@ public class Limo extends World {
 	public int width = 6;
 	public int height = 6;
 
-	public int distTraveled;
+	public double distTraveled;
 
 	public Color color;
+	public boolean noMoreCallers = false;
+	public boolean Done = false;
+	boolean dataPrinted = false;
 
 	public ArrayList<Caller> callerList = new ArrayList<Caller>();
 	public ArrayList<Caller> passengerList = new ArrayList<Caller>();
+	public ArrayList<Caller> finishedCallers = new ArrayList<Caller>();
 
 	public void move() {
 		int xDir = (targetX - x);
@@ -32,6 +36,38 @@ public class Limo extends World {
 		else if (yDir < 0)
 			y -= 1;
 		distTraveled++;
+	}
+
+	public void updateData() {
+		if (noMoreCallers && callerList.isEmpty() && passengerList.isEmpty()) {
+			Done = true;
+			if (!dataPrinted)
+				printData();
+			dataPrinted = true;
+		} else {
+			for (Caller c : callerList) {
+				c.waitTime++;
+			}
+			for (Caller p : passengerList) {
+				p.waitTime++;
+			}
+		}
+	}
+
+	public void printData() {
+		double totalWaitTime = 0;
+		double maxWaitTime = 0;
+		System.out.println(this.getClass().toString() + " DONE:");
+		System.out.println("Distance Traveled = " + distTraveled);
+		for (Caller c : finishedCallers) {
+			totalWaitTime += c.waitTime;
+			if (c.waitTime > maxWaitTime) {
+				maxWaitTime = c.waitTime;
+			}
+		}
+		System.out.println("total time for riders = " + totalWaitTime);
+		System.out.println("max wait for riders = " + maxWaitTime);
+		System.out.println("");
 	}
 
 }
