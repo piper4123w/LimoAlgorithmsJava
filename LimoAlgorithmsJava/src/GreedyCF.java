@@ -1,6 +1,16 @@
 import javafx.scene.paint.Color;
 
-public class GreedyCF extends GreedyLimo {
+public class GreedyCF extends Limo {
+	public double WEIGHT;
+
+	protected void addWeight() {
+		for (Caller p : passengerList) {
+			p.weight += WEIGHT;
+		}
+		for (Caller c : callerList) {
+			c.weight += WEIGHT;
+		}
+	}
 
 	public GreedyCF(int x, int y, double d, Color clr) {
 		this.x = x;

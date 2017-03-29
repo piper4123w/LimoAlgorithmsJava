@@ -16,7 +16,9 @@ import javafx.scene.paint.Color;
 public class World extends Application {
 	public final int WIDTH = 750;
 	public final int HEIGHT = 500;
-	public final int FPS = 900;
+	public final int FPS = 950;
+
+	public boolean allAtOnce = false;
 
 	public GraphicsContext gc;
 
@@ -35,13 +37,30 @@ public class World extends Application {
 		limos.add(l);
 		l = new ClosestFirstLimo(WIDTH / 2, HEIGHT / 2);
 		limos.add(l);
-		l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 0.1, Color.GREEN);
-		limos.add(l);
+		// l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 0.1, Color.GREEN);
+		// limos.add(l);
 		l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 1, Color.CORNFLOWERBLUE);
 		limos.add(l);
-		l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 100, Color.HOTPINK);
-		limos.add(l);
+		// l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 100, Color.HOTPINK);
+		// limos.add(l);
+		if (allAtOnce)
+			addAllCallers();
 
+	}
+
+	private void addAllCallers() {
+		while (callers > 0) {
+			Caller c = new Caller();
+			for (Limo l : limos) {
+				if (l instanceof FCFSLimo) // need this for all algorithms
+					((FCFSLimo) l).addCaller(c);
+				if (l instanceof ClosestFirstLimo)
+					((ClosestFirstLimo) l).addCaller(c);
+				if (l instanceof GreedyCF)
+					((GreedyCF) l).addCaller(c);
+			}
+			callers--;
+		}
 	}
 
 	void update() {
@@ -53,7 +72,8 @@ public class World extends Application {
 				l.noMoreCallers = true;
 			}
 		}
-		if (Math.random() * 100 < chance && callers > 0) {
+
+		if (!allAtOnce && Math.random() * 100 < chance && callers > 0) {
 			Caller c = new Caller();
 			for (Limo l : limos) {
 				if (l instanceof FCFSLimo) // need this for all algorithms

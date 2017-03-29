@@ -3,13 +3,14 @@ import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
 public class Limo extends World {
-	public int capacity = 15;
+	public int capacity = 10;
+	public double speed = 10.0;
 
 	public int targetX;
 	public int targetY;
 
-	public int x;
-	public int y;
+	public double x;
+	public double y;
 
 	public int width = 6;
 	public int height = 6;
@@ -26,18 +27,17 @@ public class Limo extends World {
 	public ArrayList<Caller> finishedCallers = new ArrayList<Caller>();
 
 	public void move() {
-		int xDir = (targetX - x);
-		int yDir = (targetY - y);
-		if (xDir > 0)
-			x += 1;
-		else if (xDir < 0)
-			x -= 1;
-
-		if (yDir > 0)
-			y += 1;
-		else if (yDir < 0)
-			y -= 1;
-		distTraveled++;
+		double dx = targetX - x;
+		double dy = targetY - y;
+		double dist = Math.sqrt(dx * dx + dy * dy);
+		if (dist < speed) {
+			x = targetX;
+			y = targetY;
+		} else {
+			x += dx * speed / dist;
+			y += dy * speed / dist;
+		}
+		distTraveled += dist;
 	}
 
 	public void updateData() {
@@ -61,8 +61,8 @@ public class Limo extends World {
 		double maxWaitTime = 0;
 		double minWaitTime = Double.MAX_VALUE;
 		String s = "";
-		if (this instanceof GreedyLimo)
-			s += " weight:" + ((GreedyLimo) this).WEIGHT;
+		if (this instanceof GreedyCF)
+			s += " weight:" + ((GreedyCF) this).WEIGHT;
 		System.out.println(this.getClass().toString() + s + " DONE:");
 		System.out.println("Distance Traveled = " + distTraveled);
 		for (Caller c : finishedCallers) {
