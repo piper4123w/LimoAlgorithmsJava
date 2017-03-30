@@ -2,12 +2,12 @@ import java.util.ArrayList;
 
 import javafx.scene.paint.Color;
 
-public class Limo extends World {
+public class Limo {
 	public int capacity = 10;
 	public double speed = 10.0;
 
-	public int targetX;
-	public int targetY;
+	public double targetX;
+	public double targetY;
 
 	public double x;
 	public double y;
@@ -76,6 +76,17 @@ public class Limo extends World {
 		System.out.println("Max wait for riders = " + maxWaitTime);
 		System.out.println("Min wait for riders = " + minWaitTime);
 		System.out.println("");
+	}
+
+	public void update() {
+		if (this instanceof FCFSLimo) // need this for all algorithms
+			((FCFSLimo) this).updateChild();
+		if (this instanceof ClosestFirstLimo)
+			((ClosestFirstLimo) this).updateChild();
+		if (this instanceof GreedyCF)
+			((GreedyCF) this).updateChild();
+		if (this instanceof dynamicLimo)
+			((dynamicLimo) this).updateChild();
 	}
 
 }

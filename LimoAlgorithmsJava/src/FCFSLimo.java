@@ -8,7 +8,7 @@ public class FCFSLimo extends Limo {
 		color = Color.YELLOW;
 	}
 
-	public void update() {
+	public void updateChild() {
 		if (passengerList.isEmpty() && !callerList.isEmpty()) {
 			// if no one is on board, pick up next caller
 			if (x == callerList.get(0).x && y == callerList.get(0).y) {

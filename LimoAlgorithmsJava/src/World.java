@@ -41,6 +41,8 @@ public class World extends Application {
 		// limos.add(l);
 		l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 1, Color.CORNFLOWERBLUE);
 		limos.add(l);
+		l = new dynamicLimo(WIDTH / 2, HEIGHT / 2);
+		limos.add(l);
 		// l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 100, Color.HOTPINK);
 		// limos.add(l);
 		if (allAtOnce)
@@ -58,6 +60,8 @@ public class World extends Application {
 					((ClosestFirstLimo) l).addCaller(c);
 				if (l instanceof GreedyCF)
 					((GreedyCF) l).addCaller(c);
+				if (l instanceof dynamicLimo)
+					((dynamicLimo) l).addCaller(c);
 			}
 			callers--;
 		}
@@ -82,6 +86,8 @@ public class World extends Application {
 					((ClosestFirstLimo) l).addCaller(c);
 				if (l instanceof GreedyCF)
 					((GreedyCF) l).addCaller(c);
+				if (l instanceof dynamicLimo)
+					((dynamicLimo) l).addCaller(c);
 			}
 			callers--;
 		}

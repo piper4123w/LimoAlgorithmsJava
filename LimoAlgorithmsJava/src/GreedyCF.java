@@ -3,15 +3,6 @@ import javafx.scene.paint.Color;
 public class GreedyCF extends Limo {
 	public double WEIGHT;
 
-	protected void addWeight() {
-		for (Caller p : passengerList) {
-			p.weight += WEIGHT;
-		}
-		for (Caller c : callerList) {
-			c.weight += WEIGHT;
-		}
-	}
-
 	public GreedyCF(int x, int y, double d, Color clr) {
 		this.x = x;
 		this.y = y;
@@ -20,7 +11,16 @@ public class GreedyCF extends Limo {
 
 	}
 
-	public void update() {
+	private void addWeight() {
+		for (Caller p : passengerList) {
+			p.weight += WEIGHT;
+		}
+		for (Caller c : callerList) {
+			c.weight += WEIGHT;
+		}
+	}
+
+	public void updateChild() {
 		double closestDistCL = Integer.MAX_VALUE;
 		int CLi = 0;
 		double closestDistPL = Integer.MAX_VALUE;

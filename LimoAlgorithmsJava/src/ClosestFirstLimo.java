@@ -8,7 +8,7 @@ public class ClosestFirstLimo extends Limo {
 		color = Color.RED;
 	}
 
-	public void update() {
+	public void updateChild() {
 		double closestDistCL = Integer.MAX_VALUE;
 		int CLi = 0;
 		double closestDistPL = Integer.MAX_VALUE;
