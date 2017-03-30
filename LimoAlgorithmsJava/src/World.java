@@ -37,14 +37,12 @@ public class World extends Application {
 		limos.add(l);
 		l = new ClosestFirstLimo(WIDTH / 2, HEIGHT / 2);
 		limos.add(l);
-		// l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 0.1, Color.GREEN);
-		// limos.add(l);
 		l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 1, Color.CORNFLOWERBLUE);
 		limos.add(l);
-		l = new dynamicLimo(WIDTH / 2, HEIGHT / 2);
+		l = new ClumpLimo(WIDTH / 2, HEIGHT / 2, 1, Color.ORANGE);
 		limos.add(l);
-		// l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 100, Color.HOTPINK);
-		// limos.add(l);
+		//l = new dynamicLimo(WIDTH / 2, HEIGHT / 2);
+		//limos.add(l);
 		if (allAtOnce)
 			addAllCallers();
 
@@ -60,6 +58,8 @@ public class World extends Application {
 					((ClosestFirstLimo) l).addCaller(c);
 				if (l instanceof GreedyCF)
 					((GreedyCF) l).addCaller(c);
+				if (l instanceof ClumpLimo)
+					((ClumpLimo) l).addCaller(c);
 				if (l instanceof dynamicLimo)
 					((dynamicLimo) l).addCaller(c);
 			}
@@ -86,6 +86,8 @@ public class World extends Application {
 					((ClosestFirstLimo) l).addCaller(c);
 				if (l instanceof GreedyCF)
 					((GreedyCF) l).addCaller(c);
+				if (l instanceof ClumpLimo)
+					((ClumpLimo) l).addCaller(c);
 				if (l instanceof dynamicLimo)
 					((dynamicLimo) l).addCaller(c);
 			}

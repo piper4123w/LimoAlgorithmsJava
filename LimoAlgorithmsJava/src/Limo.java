@@ -87,6 +87,8 @@ public class Limo {
 			((GreedyCF) this).updateChild();
 		if (this instanceof dynamicLimo)
 			((dynamicLimo) this).updateChild();
+		if (this instanceof ClumpLimo)
+			((ClumpLimo) this).updateChild();
 	}
 
 }
