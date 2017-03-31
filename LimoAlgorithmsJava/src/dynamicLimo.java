@@ -21,7 +21,9 @@ public class dynamicLimo extends Limo {
 			targetY = nextDest.y;
 			move();
 			if (x == targetX && y == targetY) {
+				System.out.println("Reached target isCaller=" + nextDest.isCaller);
 				if (nextDest.isCaller) {
+					nextDest.isCaller = false;
 					passengerList.add(nextDest.caller);
 					callerList.remove(nextDest.caller);
 					solvePath();
@@ -73,6 +75,7 @@ public class dynamicLimo extends Limo {
 		}
 		for (Caller c : passengerList) {
 			Node n = new Node(c.x, c.y, root, c.weight);
+			n.caller = c;
 			n.id = nodeID++;
 			root.childList.add(n);
 		}
@@ -82,19 +85,17 @@ public class dynamicLimo extends Limo {
 	}
 
 	public void getPath(Node node) {
-		// System.out.println("node :" + node.toString() + " id=" + node.id);
+		System.out.println("node :" + node.toString() + " id=" + node.id);
 		if (!node.childList.isEmpty()) {
-			// node.sortChildren();
+			node.sortChildren();
 			for (Node n : node.childList) {
-				// System.out.println("Child in questions = " + n.id + " addr: "
-				// + n.toString());
+				System.out.println("Child in questions = " + n.id + " addr: " + n.toString());
 				for (Node c : node.childList) {
 					if (c.id != n.id) {
 						Node newChild = new Node(c);
 						c.parent = n;
 						n.childList.add(newChild);
-						// System.out.println("added " + c.id + " as " +
-						// newChild.toString());
+						System.out.println("added " + c.id + " as " + newChild.toString());
 					}
 				}
 
