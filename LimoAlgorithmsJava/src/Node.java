@@ -8,12 +8,23 @@ public class Node {
 	double y;
 	double weight;
 	public boolean isCaller = false;
+	public boolean isRoot = false;
 
 	public Node(double x2, double y2, Node p, double w) {
 		this.x = x2;
 		this.y = y2;
 		parent = p;
 		weight = w;
+		childList = new ArrayList<Node>();
+	}
+
+	public Node(Node c) {
+		parent = c.parent;
+		caller = c.caller;
+		x = c.x;
+		y = c.y;
+		weight = c.weight;
+		isCaller = c.isCaller;
 		childList = new ArrayList<Node>();
 	}
 

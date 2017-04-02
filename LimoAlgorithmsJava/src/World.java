@@ -43,7 +43,7 @@ public class World extends Application {
 		limos.add(l);
 		l = new dynamicLimo(WIDTH / 2, HEIGHT / 2, Color.GREY);
 		limos.add(l);
-		if (allAtOnce) 
+		if (allAtOnce)
 			addAllCallers();
 
 	}
