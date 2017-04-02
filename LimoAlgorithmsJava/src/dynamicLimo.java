@@ -7,10 +7,10 @@ public class dynamicLimo extends Limo {
 	Node nextDest;
 	Node root;
 
-	public dynamicLimo(double x, double y) {
+	public dynamicLimo(double x, double y, Color clr) {
 		this.x = x;
 		this.y = y;
-		color = Color.DARKGRAY;
+		color = clr;
 	}
 
 	public void updateChild() {
@@ -19,6 +19,7 @@ public class dynamicLimo extends Limo {
 			targetY = nextDest.y;
 			move();
 			if (x == targetX && y == targetY) {
+				debugPrintRideList();
 				if (nextDest.isCaller) {
 					passengerList.add(nextDest.caller);
 				} else {

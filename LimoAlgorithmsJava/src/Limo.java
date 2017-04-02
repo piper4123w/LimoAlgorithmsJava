@@ -90,5 +90,18 @@ public class Limo {
 		if (this instanceof ClumpLimo)
 			((ClumpLimo) this).updateChild();
 	}
+	
+	public void debugPrintRideList(){
+		System.out.println("CALLER LIST");
+		for(Caller c : callerList){
+			System.out.println(c.toString());
+		}
+		System.out.println("\n");
+		System.out.println("PASSENGER LIST");
+		for(Caller p : passengerList){
+			System.out.println(p.toString());
+		}
+		System.out.println("\n");
+	}
 
 }

@@ -33,17 +33,17 @@ public class World extends Application {
 		callers = sc.nextInt();
 		System.out.println("Enter % chance of call per update : DOUBLE");
 		chance = sc.nextDouble();
-		Limo l = new FCFSLimo(WIDTH / 2, HEIGHT / 2);
+		Limo l = new FCFSLimo(WIDTH / 2, HEIGHT / 2, Color.RED);
 		limos.add(l);
-		l = new ClosestFirstLimo(WIDTH / 2, HEIGHT / 2);
+		l = new ClosestFirstLimo(WIDTH / 2, HEIGHT / 2, Color.YELLOW);
 		limos.add(l);
-		l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 1, Color.CORNFLOWERBLUE);
+		l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 1, Color.GREEN);
 		limos.add(l);
 		l = new ClumpLimo(WIDTH / 2, HEIGHT / 2, 1, Color.ORANGE);
 		limos.add(l);
-		//l = new dynamicLimo(WIDTH / 2, HEIGHT / 2);
-		//limos.add(l);
-		if (allAtOnce)
+		l = new dynamicLimo(WIDTH / 2, HEIGHT / 2, Color.GREY);
+		limos.add(l);
+		if (allAtOnce) 
 			addAllCallers();
 
 	}

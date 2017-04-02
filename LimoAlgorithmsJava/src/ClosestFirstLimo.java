@@ -2,10 +2,10 @@ import javafx.scene.paint.Color;
 
 public class ClosestFirstLimo extends Limo {
 
-	public ClosestFirstLimo(int x, int y) {
+	public ClosestFirstLimo(int x, int y, Color clr) {
 		this.x = x;
 		this.y = y;
-		color = Color.RED;
+		color = clr;
 	}
 
 	public void updateChild() {
