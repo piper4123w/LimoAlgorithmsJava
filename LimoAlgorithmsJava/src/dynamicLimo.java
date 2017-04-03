@@ -109,7 +109,6 @@ public class dynamicLimo extends Limo {
 				if (fastestPath.weight > node.weight) {
 					fastestPath = node; // node has less total weight
 				}
-				System.out.println(fastestPath.weight);
 			}
 		}
 
