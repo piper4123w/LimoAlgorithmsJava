@@ -18,7 +18,7 @@ public class World extends Application {
 	public final int HEIGHT = 500;
 	public final int FPS = 30;
 
-	public boolean allAtOnce = false;
+	public boolean allAtOnce = true;
 
 	public GraphicsContext gc;
 
@@ -31,8 +31,10 @@ public class World extends Application {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("enter number of callers");
 		callers = sc.nextInt();
-		System.out.println("Enter % chance of call per update : DOUBLE");
-		chance = sc.nextDouble();
+		if (!allAtOnce) {
+			System.out.println("Enter % chance of call per update : DOUBLE");
+			chance = sc.nextDouble();
+		}
 		Limo l = new FCFSLimo(WIDTH / 2, HEIGHT / 2, Color.RED);
 		limos.add(l);
 		l = new ClosestFirstLimo(WIDTH / 2, HEIGHT / 2, Color.YELLOW);
