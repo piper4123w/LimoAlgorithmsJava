@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
 public class Limo {
-	public int capacity = 10;
+	public int capacity = 10000;
 	public double speed = 10.0;
 
 	public double targetX;
@@ -25,6 +25,8 @@ public class Limo {
 	public ArrayList<Caller> callerList = new ArrayList<Caller>();
 	public ArrayList<Caller> passengerList = new ArrayList<Caller>(capacity);
 	public ArrayList<Caller> finishedCallers = new ArrayList<Caller>();
+	
+	public double totalWaitTime, maxWaitTime;
 
 	public void move() {
 		double dx = targetX - x;
@@ -57,8 +59,6 @@ public class Limo {
 	}
 
 	public void printData() {
-		double totalWaitTime = 0;
-		double maxWaitTime = 0;
 		double minWaitTime = Double.MAX_VALUE;
 		String s = "";
 		if (this instanceof GreedyCF)

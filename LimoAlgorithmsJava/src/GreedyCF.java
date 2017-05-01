@@ -14,16 +14,19 @@ public class GreedyCF extends Limo {
 	private void addWeight() {
 		for (Caller p : passengerList) {
 			p.weight += WEIGHT;
+//			System.out.print(p.weight + " ");
 		}
 		for (Caller c : callerList) {
 			c.weight += WEIGHT;
+//			System.out.print(c.weight + " ");
 		}
+//		System.out.println();
 	}
 
 	public void updateChild() {
-		double closestDistCL = Integer.MAX_VALUE;
+		double closestDistCL = Double.MAX_VALUE;
 		int CLi = 0;
-		double closestDistPL = Integer.MAX_VALUE;
+		double closestDistPL = Double.MAX_VALUE;
 		int PLi = 0;
 
 		// Add weight to all callers
