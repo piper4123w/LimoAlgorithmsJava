@@ -1,3 +1,6 @@
+/*
+ * creates output file from sweeping data
+ */
 import java.io.FileWriter;
 import java.io.IOException;
 
