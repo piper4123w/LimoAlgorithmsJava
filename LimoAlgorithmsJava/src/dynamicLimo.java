@@ -58,6 +58,7 @@ public class dynamicLimo extends Limo {
 			n = n.parent;
 		}
 		System.out.println();
+		return n;
 
 	}
 
@@ -65,7 +66,7 @@ public class dynamicLimo extends Limo {
 		fastestPath = null;
 		root = new Node(x, y, null, 0);
 		root.isCaller = false;
-		nodeID = 1;
+		int nodeID = 1;
 		System.out.println("there are " + callerList.size() + " callers & " + passengerList.size() + " passengers");
 		for (Caller c : callerList) {
 			Node n = new Node(c.x, c.y, root, c.waitTime);

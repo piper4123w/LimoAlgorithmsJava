@@ -25,11 +25,11 @@ public class LimoFileOutput {
 		 */
 		limos = new ArrayList<Limo>();
 		limos.removeAll(limos);
-		Limo l = new FCFSLimo(WIDTH / 2, HEIGHT / 2);
+		Limo l = new FCFSLimo(WIDTH / 2, HEIGHT / 2, Color.YELLOW);
 		l.capacity = cap;
 		limos.add(l);
 		
-		l = new ClosestFirstLimo(WIDTH / 2, HEIGHT / 2);
+		l = new ClosestFirstLimo(WIDTH / 2, HEIGHT / 2, Color.RED);
 		l.capacity = cap;
 		limos.add(l);
 		

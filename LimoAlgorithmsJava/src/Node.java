@@ -8,11 +8,8 @@ public class Node {
 	double y;
 	double weight;
 	public boolean isCaller = false;
-<<<<<<< HEAD
 	public int id;
-=======
 	public boolean isRoot = false;
->>>>>>> refs/remotes/origin/master
 
 	public Node(double x2, double y2, Node p, double w) {
 		this.x = x2;
@@ -23,21 +20,12 @@ public class Node {
 	}
 
 	public Node(Node c) {
-<<<<<<< HEAD
 		x = c.x;
 		y = c.y;
 		id = c.id;
 		weight = c.weight;
 		isCaller = c.isCaller;
 		parent = c.parent;
-=======
-		parent = c.parent;
-		caller = c.caller;
-		x = c.x;
-		y = c.y;
-		weight = c.weight;
-		isCaller = c.isCaller;
->>>>>>> refs/remotes/origin/master
 		childList = new ArrayList<Node>();
 	}
 

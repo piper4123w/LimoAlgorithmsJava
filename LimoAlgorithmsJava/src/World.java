@@ -39,23 +39,12 @@ public class World extends Application {
 		limos.add(l);
 		l = new ClosestFirstLimo(WIDTH / 2, HEIGHT / 2, Color.YELLOW);
 		limos.add(l);
-<<<<<<< HEAD
 		l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 2, Color.GREEN);
-=======
-		l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 1, Color.GREEN);
->>>>>>> refs/remotes/origin/master
-		limos.add(l);
-<<<<<<< HEAD
-//		l = new dynamicLimo(WIDTH / 2, HEIGHT / 2);
-//		limos.add(l);
-		// l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 100, Color.HOTPINK);
-		// limos.add(l);
-=======
+		/*limos.add(l);
 		l = new ClumpLimo(WIDTH / 2, HEIGHT / 2, 1, Color.ORANGE);
 		limos.add(l);
 		l = new dynamicLimo(WIDTH / 2, HEIGHT / 2, Color.GREY);
-		limos.add(l);
->>>>>>> refs/remotes/origin/master
+		limos.add(l);*/
 		if (allAtOnce)
 			addAllCallers();
 
