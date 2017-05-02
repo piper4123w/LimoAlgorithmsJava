@@ -16,15 +16,19 @@ public class LimoFileOutput {
 	static int callers;
 	static double chance;
 
-	static ArrayList<Limo> limos = new ArrayList<Limo>();
+	static ArrayList<Limo> limos;
 
-	static void initialize(double ch) {
+	static void initialize(double ch, int calls) {
 		chance = ch;
-		/*Scanner sc = new Scanner(System.in);
-		System.out.println("enter number of callers");
-		callers = sc.nextInt();
-		System.out.println("Enter % chance of call per update : DOUBLE");
-		chance = sc.nextDouble();*/
+		callers = calls;
+		/*
+		 * Scanner sc = new Scanner(System.in);
+		 * System.out.println("enter number of callers"); callers =
+		 * sc.nextInt();
+		 * System.out.println("Enter % chance of call per update : DOUBLE");
+		 * chance = sc.nextDouble();
+		 */
+		limos = new ArrayList<Limo>();
 		Limo l = new FCFSLimo(WIDTH / 2, HEIGHT / 2);
 		limos.add(l);
 		l = new ClosestFirstLimo(WIDTH / 2, HEIGHT / 2);
@@ -85,36 +89,40 @@ public class LimoFileOutput {
 	}
 
 	public static void main(String[] args) throws IOException {
-		int[] callerSweep = { 10, 100, 1000, 10000 };
+		int[] callerSweep = { 10 };
 		int chanceSweepAmnt = 10;
 		FileWriter writer = new FileWriter("data.csv");
-		StringBuilder sb = new StringBuilder();
+		String sb = "";
 		for (int callerAmnt : callerSweep) {
-			sb.append("Callers," + callerAmnt + "/n");
-			sb.append(",FCFS,CF,Greed/n");
-			sb.append("chance,max,total,max,total,max,total\n");
+			sb += ("Callers," + callerAmnt + "\n");
+			sb += (",FCFS,,CF,,Greed\n");
+			sb += ("chance,max,total,max,total,max,total\n");
 			for (int chanceP = 0; chanceP < 100; chanceP += chanceSweepAmnt) {
-				sb.append(chanceP + ",");
-				initialize(chanceP);
+				sb += (chanceP + ",");
+				initialize(chanceP, callerAmnt);
 				boolean allDone = false;
 				while (!allDone) {
 					// System.out.println("Running");
 					allDone = true;
 					for (Limo l : limos) {
+						System.out.println(l.x + "," + l.y);
 						if (!l.Done) {
 							allDone = false;
 							break;
 						}
 					}
 					update();
-
 				}
-				
-				for(Limo l : limos){
-					sb.append(l.maxWaitTime + "," + l.totalWaitTime +"\n");
+				for (Limo l : limos) {
+					sb += (l.maxWaitTime + "," + l.totalWaitTime + ",");
+					System.out.print(l.maxWaitTime + "," + l.totalWaitTime + ",");
 				}
+				sb += "\n";
+				System.out.println();
 			}
+			sb += "\n\n";
 		}
+		writer.append(sb);
 		writer.close();
 		System.out.println("Done");
 	}
