@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
 public class Limo {
-	public int capacity = 10000;
+	public int capacity = 1;
 	public double speed = 10.0;
 
 	public double targetX;
@@ -25,8 +25,8 @@ public class Limo {
 	public ArrayList<Caller> callerList = new ArrayList<Caller>();
 	public ArrayList<Caller> passengerList = new ArrayList<Caller>(capacity);
 	public ArrayList<Caller> finishedCallers = new ArrayList<Caller>();
-	
-	public double totalWaitTime, maxWaitTime;
+
+	public double totalWaitTime, maxWaitTime, averageWaitTime;
 
 	public void move() {
 		double dx = targetX - x;
@@ -72,13 +72,16 @@ public class Limo {
 			if (c.waitTime < minWaitTime)
 				minWaitTime = c.waitTime;
 		}
+		averageWaitTime = totalWaitTime / finishedCallers.size();
 		System.out.println("total time for riders = " + totalWaitTime);
 		System.out.println("Max wait for riders = " + maxWaitTime);
 		System.out.println("Min wait for riders = " + minWaitTime);
+		System.out.println("Avg wait for riders = " + averageWaitTime);
 		System.out.println("");
 	}
 
 	public void update() {
+		// System.out.println("update " + this.getClass().toGenericString());
 		if (this instanceof FCFSLimo) // need this for all algorithms
 			((FCFSLimo) this).updateChild();
 		if (this instanceof ClosestFirstLimo)

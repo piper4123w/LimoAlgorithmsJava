@@ -1,24 +1,19 @@
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class LimoFileOutput {
-	public final static int WIDTH = 750;
-	public final static int HEIGHT = 500;
+	public final static int WIDTH = 7500;
+	public final static int HEIGHT = 5000;
 
-	public static boolean allAtOnce = false;
+	public boolean allAtOnce = false;
 
-	public GraphicsContext gc;
+	int callers;
+	double chance;
 
-	static int callers;
-	static double chance;
+	ArrayList<Limo> limos;
 
-	static ArrayList<Limo> limos;
-
-	static void initialize(double ch, int calls) {
+	void initialize(double ch, int calls, int cap) {
 		chance = ch;
 		callers = calls;
 		/*
@@ -29,11 +24,17 @@ public class LimoFileOutput {
 		 * chance = sc.nextDouble();
 		 */
 		limos = new ArrayList<Limo>();
+		limos.removeAll(limos);
 		Limo l = new FCFSLimo(WIDTH / 2, HEIGHT / 2);
+		l.capacity = cap;
 		limos.add(l);
+		
 		l = new ClosestFirstLimo(WIDTH / 2, HEIGHT / 2);
+		l.capacity = cap;
 		limos.add(l);
+		
 		l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 2, Color.GREEN);
+		l.capacity = cap;
 		limos.add(l);
 		// l = new dynamicLimo(WIDTH / 2, HEIGHT / 2);
 		// limos.add(l);
@@ -44,7 +45,7 @@ public class LimoFileOutput {
 
 	}
 
-	private static void addAllCallers() {
+	private void addAllCallers() {
 		while (callers > 0) {
 			Caller c = new Caller();
 			for (Limo l : limos) {
@@ -61,7 +62,7 @@ public class LimoFileOutput {
 		}
 	}
 
-	static void update() {
+	void update() {
 		for (Limo l : limos) {
 			l.update();
 			l.updateData();
@@ -88,42 +89,4 @@ public class LimoFileOutput {
 
 	}
 
-	public static void main(String[] args) throws IOException {
-		int[] callerSweep = { 10 };
-		int chanceSweepAmnt = 10;
-		FileWriter writer = new FileWriter("data.csv");
-		String sb = "";
-		for (int callerAmnt : callerSweep) {
-			sb += ("Callers," + callerAmnt + "\n");
-			sb += (",FCFS,,CF,,Greed\n");
-			sb += ("chance,max,total,max,total,max,total\n");
-			for (int chanceP = 0; chanceP < 100; chanceP += chanceSweepAmnt) {
-				sb += (chanceP + ",");
-				initialize(chanceP, callerAmnt);
-				boolean allDone = false;
-				while (!allDone) {
-					// System.out.println("Running");
-					allDone = true;
-					for (Limo l : limos) {
-						System.out.println(l.x + "," + l.y);
-						if (!l.Done) {
-							allDone = false;
-							break;
-						}
-					}
-					update();
-				}
-				for (Limo l : limos) {
-					sb += (l.maxWaitTime + "," + l.totalWaitTime + ",");
-					System.out.print(l.maxWaitTime + "," + l.totalWaitTime + ",");
-				}
-				sb += "\n";
-				System.out.println();
-			}
-			sb += "\n\n";
-		}
-		writer.append(sb);
-		writer.close();
-		System.out.println("Done");
-	}
 }
