@@ -2,10 +2,10 @@ import javafx.scene.paint.Color;
 
 public class FCFSLimo extends Limo {
 
-	public FCFSLimo(int x, int y) {
+	public FCFSLimo(int x, int y, Color clr) {
 		this.x = x;
 		this.y = y;
-		color = Color.YELLOW;
+		color = clr;
 	}
 
 	public void updateChild() {

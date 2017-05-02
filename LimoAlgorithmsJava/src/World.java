@@ -18,7 +18,7 @@ public class World extends Application {
 	public final int HEIGHT = 500;
 	public final int FPS = 30;
 
-	public boolean allAtOnce = false;
+	public boolean allAtOnce = true;
 
 	public GraphicsContext gc;
 
@@ -31,18 +31,31 @@ public class World extends Application {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("enter number of callers");
 		callers = sc.nextInt();
-		System.out.println("Enter % chance of call per update : DOUBLE");
-		chance = sc.nextDouble();
-		Limo l = new FCFSLimo(WIDTH / 2, HEIGHT / 2);
+		if (!allAtOnce) {
+			System.out.println("Enter % chance of call per update : DOUBLE");
+			chance = sc.nextDouble();
+		}
+		Limo l = new FCFSLimo(WIDTH / 2, HEIGHT / 2, Color.RED);
 		limos.add(l);
-		l = new ClosestFirstLimo(WIDTH / 2, HEIGHT / 2);
+		l = new ClosestFirstLimo(WIDTH / 2, HEIGHT / 2, Color.YELLOW);
 		limos.add(l);
+<<<<<<< HEAD
 		l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 2, Color.GREEN);
+=======
+		l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 1, Color.GREEN);
+>>>>>>> refs/remotes/origin/master
 		limos.add(l);
+<<<<<<< HEAD
 //		l = new dynamicLimo(WIDTH / 2, HEIGHT / 2);
 //		limos.add(l);
 		// l = new GreedyCF(WIDTH / 2, HEIGHT / 2, 100, Color.HOTPINK);
 		// limos.add(l);
+=======
+		l = new ClumpLimo(WIDTH / 2, HEIGHT / 2, 1, Color.ORANGE);
+		limos.add(l);
+		l = new dynamicLimo(WIDTH / 2, HEIGHT / 2, Color.GREY);
+		limos.add(l);
+>>>>>>> refs/remotes/origin/master
 		if (allAtOnce)
 			addAllCallers();
 
@@ -58,6 +71,8 @@ public class World extends Application {
 					((ClosestFirstLimo) l).addCaller(c);
 				if (l instanceof GreedyCF)
 					((GreedyCF) l).addCaller(c);
+				if (l instanceof ClumpLimo)
+					((ClumpLimo) l).addCaller(c);
 				if (l instanceof dynamicLimo)
 					((dynamicLimo) l).addCaller(c);
 			}
@@ -84,6 +99,8 @@ public class World extends Application {
 					((ClosestFirstLimo) l).addCaller(c);
 				if (l instanceof GreedyCF)
 					((GreedyCF) l).addCaller(c);
+				if (l instanceof ClumpLimo)
+					((ClumpLimo) l).addCaller(c);
 				if (l instanceof dynamicLimo)
 					((dynamicLimo) l).addCaller(c);
 			}
