@@ -18,19 +18,16 @@ public class dynamicLimo extends Limo {
 			targetY = nextDest.y;
 			move();
 			if (x == targetX && y == targetY) {
-				System.out.println("Reached target isCaller=" + nextDest.isCaller);
 				if (nextDest.isCaller) {
-					nextDest.isCaller = false;
 					callerList.remove(nextDest.caller);
 					nextDest.isCaller = false;
 					passengerList.add(nextDest.caller);
-					callerList.remove(nextDest.caller);
-					solvePath();
 				} else {
 					passengerList.remove(nextDest.caller);
-					nextDest.parent = null;
+					finishedCallers.add(nextDest.caller);
 				}
-
+				// debugPrintRideList();
+				solvePath();
 				nextDest = getNextMove();
 			}
 		}
@@ -40,25 +37,22 @@ public class dynamicLimo extends Limo {
 	public void addCaller(Caller c) {
 		// System.out.println("New Caller");
 		callerList.add(c);
-		fastestPath = null;
+		// debugPrintRideList();
 		solvePath();
 		nextDest = getNextMove();
 	}
 
 	private Node getNextMove() {
 		Node n = fastestPath;
-		if (n == null) {
-			System.out.println("no moves");
-		} else if (n.parent == null) {
-			System.out.println("Only move");
+		if (fastestPath != null) {
+			while (n.parent.isRoot != true) {
+				n = n.parent;
+			}
+			// System.out.println("NextDest:" + n.caller.toString());
 			return n;
+		} else {
+			return null;
 		}
-		while (n.parent.parent != null) {
-			System.out.println(n.toString() + "->");
-			n = n.parent;
-		}
-		System.out.println();
-		return n;
 
 	}
 
@@ -66,15 +60,13 @@ public class dynamicLimo extends Limo {
 		fastestPath = null;
 		root = new Node(x, y, null, 0);
 		root.isCaller = false;
-		int nodeID = 1;
-		System.out.println("there are " + callerList.size() + " callers & " + passengerList.size() + " passengers");
+		root.isRoot = true;
 		for (Caller c : callerList) {
 			Node n = new Node(c.x, c.y, root, c.waitTime);
 			n.caller = c;
 			// System.out.println("Made node " + n.toString() + " for " +
 			// c.toString());
 			n.isCaller = true;
-			n.id = nodeID++;
 			root.childList.add(n);
 		}
 		for (Caller c : passengerList) {
@@ -83,28 +75,23 @@ public class dynamicLimo extends Limo {
 			n.isCaller = false;
 			// System.out.println("Made node " + n.toString() + " for " +
 			// c.toString());
-			n.caller = c;
-			n.id = nodeID++;
 			root.childList.add(n);
 		}
-		System.out.println("There are " + (nodeID - 1) + " possible destinations");
 		getPath(root);
 		// System.out.println("Got dat path boiiiii!! fastestPath:" +
 		// fastestPath.toString());
 	}
 
 	public void getPath(Node node) {
-		System.out.println("node :" + node.toString() + " id=" + node.id);
 		if (!node.childList.isEmpty()) {
-			node.sortChildren();
+			// node.sortChildren();
 			for (Node n : node.childList) {
-				System.out.println("Child in questions = " + n.id + " addr: " + n.toString());
 				for (Node c : node.childList) {
-					if (c.id != n.id) {
-						Node newChild = new Node(c);
-						c.parent = n;
-						n.childList.add(newChild);
-						System.out.println("added " + c.id + " as " + newChild.toString());
+					if (!c.equals(n)) {
+						double timeOnTravel = Math.sqrt(Math.pow(node.x - n.x, 2) + Math.pow(node.y - n.y, 2)) / speed;
+						double weight = n.weight + timeOnTravel;
+						c.weight += weight;
+						n.childList.add(new Node(c));
 					}
 				}
 
@@ -123,10 +110,6 @@ public class dynamicLimo extends Limo {
 					fastestPath = node; // node has less total weight
 				}
 			}
-		} else {
-			// System.out.println();
-			if (fastestPath == null || fastestPath.weight > node.weight)
-				fastestPath = node;
 		}
 
 	}
